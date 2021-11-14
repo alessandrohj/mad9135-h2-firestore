@@ -1,12 +1,15 @@
 import './App.css';
-import {getData} from './firebase/firebase.utils';
+// import {getData, updateData, deleteData, addData} from './firebase/firebase.utils';
+import Add from './components/Add/Add';
 
 function App() {
-  getData();
+
+
 
   return (
     <div className="App">
   <h1>Firestore App</h1>
+  <Add/>
     </div>
   );
 }
