@@ -1,5 +1,7 @@
 import {Box, Button, TextField, MenuItem, Container} from '@mui/material'
+import { addData } from '../../firebase/firebase.utils';
 import {useState} from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Add(props){
     const [category, setCategory] = useState('american');
@@ -16,9 +18,9 @@ export default function Add(props){
         } else {
             let data = {
                 title: title.value,
-                category: category
             }
-            console.log(data)
+            console.log(data);
+           addData(category, data)
         }
 
       }
@@ -69,13 +71,7 @@ export default function Add(props){
           placeholder="Title"
           required
         />
-        {/* <TextField
-          id="outlined-textarea"
-          label="Quote"
-          multiline
-          rows={4}
-        /> */}
-        <Button style={{maxWidth:"15vw", marginTop:"2rem"}} variant="contained" onClick={handleClick}>Add</Button>
+        <Button style={{maxWidth:"15vw", marginTop:"2rem"}} variant="contained" onClick={handleClick}><Link to='/'>Add</Link></Button>
       </Container>
     </Box>
     )

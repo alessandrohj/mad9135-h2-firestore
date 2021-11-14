@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, getDocs, collection } from 'firebase/firestore';
+import { getFirestore, getDocs, collection, addDoc } from 'firebase/firestore';
 import cuid from 'cuid';
 
 
@@ -17,33 +17,29 @@ const firebaseConfig = {
   const db = getFirestore(app);
 
 
-export async function getData(categorie){
-    const peopleCol = collection(db, categorie);
+export async function getData(category){
+    const peopleCol = collection(db, category);
     const peopleSnapshot = await getDocs(peopleCol)
     const peopleList = peopleSnapshot.docs.map(item => item.data())
     console.log(peopleList);
     return peopleList;
 }
 
-export async function addData(data, categorie){
-    db.collection(categorie).doc(cuid()).set(data)
-    .then(()=>{
-        console.log("Document successfully written!");
-    })
-    .catch((error) => {
-        console.error("Error writing document: ", error);
-    });
+
+export async function addData(category, data, id){
+    const docRef = await addDoc(collection(db, category), data);
+      console.log("Document written with ID: ", docRef.id);
 }
 
-export async function deleteData(categorie, id){
-    db.collection(categorie).doc(id).delete().then(() => {
+export async function deleteData(category, id){
+    db.collection(category).doc(id).delete().then(() => {
         console.log("Document successfully deleted!");
     }).catch((error) => {
         console.error("Error removing document: ", error);
     });
 }
 
-export async function updateData(categorie, id){
-    let ref = db.collection(categorie).doc(id);
+export async function updateData(category, id){
+    let ref = db.collection(category).doc(id);
     //TODO: create fields to update
 }
