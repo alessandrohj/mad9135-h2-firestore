@@ -4,8 +4,7 @@ import Add from './components/Add/Add';
 import Home from './components/Home/Home';
 import { useEffect, useState } from 'react';
 import { initializeApp } from "firebase/app";
-import { getFirestore, getDocs, collection, addDoc, query, where} from 'firebase/firestore';
-import {Card, CardContent, Button} from '@mui/material';
+import { getFirestore, getDocs, collection} from 'firebase/firestore';
 import {firebaseConfig } from './firebase/firebase.utils';
 
 function App() {
@@ -29,7 +28,7 @@ return setShows(showsList);
 
  useEffect(()=>{
    getData('american');
- }, [])
+ })
 
 
  function updateList(obj){
@@ -41,6 +40,7 @@ return setShows(showsList);
       return item;
     }
    });
+   console.log(newList)
    setShows(newList)
  }
 
@@ -51,7 +51,7 @@ return setShows(showsList);
   <h1>Firestore App</h1>
     <Switch>
     <Route exact path="/" >
-      <Home data={shows}/>
+      <Home data={shows} updateData={updateList} updateShows={setShows}/>
       </Route>
       <Route path="/add">
         <Add/>
