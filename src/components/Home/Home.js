@@ -25,6 +25,7 @@ export default function Home({data, updateData, updateShows}){
         updateData(obj);
       }
 
+      //TODO: update App and firebase
       function saveItem(ev) {
         ev.preventDefault();
         const id = ev.target.getAttribute('data-id');
@@ -94,14 +95,3 @@ export default function Home({data, updateData, updateShows}){
 
     )
 }
-
-       /* { 
-            data && data.map((item)=>(
-                <Card key={item.id} data-id={item.id} style={{maxWidth: 275, marginTop: '1rem'}}>
-                <CardContent>
-                  <h2>{item.title}</h2>
-                </CardContent>
-                <Button data-id={item.id} onClick={handleClick}>Edit</Button>
-            </Card>
-            ))
-            } */

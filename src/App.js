@@ -23,27 +23,31 @@ async function getData (category) {
       title: item.data()['title']
     })
 })
+console.log(showsList);
 return setShows(showsList);
  }
 
  useEffect(()=>{
    getData('american');
- })
+ }, [])
 
 
- function updateList(obj){
-   const newList = shows.map((item)=>{
-    if(obj.id === item.id) {
-      return obj;
-    }
-    else {
-      return item;
-    }
-   });
-   console.log(newList)
-   setShows(newList)
- }
+//  function updateList(obj){
+//    const newList = shows.map((item)=>{
+//     if(obj.id === item.id) {
+//       return obj;
+//     }
+//     else {
+//       return item;
+//     }
+//    });
+//    console.log(newList)
+//    setShows(newList)
+//  }
 
+function updateList(){
+  getData('american');
+}
 
 
   return (
@@ -54,7 +58,7 @@ return setShows(showsList);
       <Home data={shows} updateData={updateList} updateShows={setShows}/>
       </Route>
       <Route path="/add">
-        <Add/>
+        <Add  data={shows} updateList={updateList}/>
       </Route>
     </Switch>
     </div>

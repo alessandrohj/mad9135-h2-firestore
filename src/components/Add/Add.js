@@ -1,28 +1,34 @@
 import {Box, Button, TextField, MenuItem, Container} from '@mui/material'
 import { addData } from '../../firebase/firebase.utils';
 import {useState} from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
-export default function Add(props){
-    const [category, setCategory] = useState('american');
+export default function Add({updateList, data}){
+  const [list, setList] = useState(data);
+  const [category, setCategory] = useState('american');
 
     const handleCategory = (ev) => {
         setCategory(ev.target.value);
       };
 
-      const handleClick = () => {
+    
+     async function save(ev){
         let title = document.getElementById('show-title');
-        
+        ev.preventDefault();   
         if(!title.value) {
             return
         } else {
-            let data = {
-                title: title.value,
-            }
-            console.log(data);
-           addData(category, data)
+            title.textContent = '';
+        let id = await addData(category, { title: title.value});
+           setList(data.push({title: title.value, id: id}));
+           updateList();
+
         }
 
+      }
+
+      function cancel(ev){
+        ev.preventDefault();
       }
 
     const categories = [
@@ -49,7 +55,7 @@ export default function Add(props){
       noValidate
       autoComplete="off"
     >
-        <h2>Add Data</h2>
+        <h2>Add New TV Show</h2>
         <Container style={{display: "flex", flexDirection: "column"}}>
         <TextField
           id="outlined-select-category"
@@ -71,7 +77,8 @@ export default function Add(props){
           placeholder="Title"
           required
         />
-        <Button style={{maxWidth:"15vw", marginTop:"2rem"}} variant="contained" onClick={handleClick}><Link to='/'>Add</Link></Button>
+        <Button style={{maxWidth:"15vw", marginTop:"2rem"}} variant="contained" onClick={save}><NavLink to='/'>Add</NavLink></Button>
+        <Button style={{maxWidth:"15vw", marginTop:"2rem"}} color="warning" variant="contained" onClick={cancel}><NavLink to='/'>Cancel</NavLink></Button>
       </Container>
     </Box>
     )
