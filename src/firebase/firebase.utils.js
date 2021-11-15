@@ -1,9 +1,7 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, getDocs, collection, addDoc } from 'firebase/firestore';
-import cuid from 'cuid';
+import { getFirestore, getDocs, collection, addDoc, query, where} from 'firebase/firestore';
 
-
-const firebaseConfig = {
+export const firebaseConfig = {
     apiKey: "AIzaSyCktNICL86Mw-LEIGlWQsCLzaYXyVKfazo",
     authDomain: "firestore-dcdd3.firebaseapp.com",
     projectId: "firestore-dcdd3",
@@ -18,17 +16,24 @@ const firebaseConfig = {
 
 
 export async function getData(category){
-    const peopleCol = collection(db, category);
-    const peopleSnapshot = await getDocs(peopleCol)
-    const peopleList = peopleSnapshot.docs.map(item => item.data())
-    console.log(peopleList);
-    return peopleList;
+    const showsCol = collection(db, category);
+    const showSnapshot = await getDocs(showsCol)
+    const showsList = showSnapshot.docs.map(item => {
+        return ({
+            id: item.id,
+            title: item.data()['title'],
+            }
+        )
+    })
+    return showsList;
+
 }
 
 
 export async function addData(category, data, id){
     const docRef = await addDoc(collection(db, category), data);
       console.log("Document written with ID: ", docRef.id);
+      return docRef.id;
 }
 
 export async function deleteData(category, id){
