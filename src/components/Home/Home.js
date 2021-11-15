@@ -1,4 +1,5 @@
 import { Card, CardContent, Container, Button } from "@mui/material";
+import {deleteData} from '../../firebase/firebase.utils';
 import { useState } from "react";
 import EditItem from "../EditItem/EditItem";
 
@@ -56,6 +57,7 @@ export default function Home({data, updateData, updateShows}){
     let newData = data.filter((obj) => {
       return obj.id !== id;
     });
+    deleteData(id);
     updateShows(newData);
     setItemId('');
     setOriginalItem('');
