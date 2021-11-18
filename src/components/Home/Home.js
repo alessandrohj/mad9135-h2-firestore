@@ -1,10 +1,10 @@
 import { Card, CardContent, Container, Button } from "@mui/material";
-import {deleteData} from '../../firebase/firebase.utils';
+import {deleteItem, updateItem} from '../../firebase/firebase.utils';
 import { useState } from "react";
 import EditItem from "../EditItem/EditItem";
 
 
-export default function Home({data, updateData, updateShows}){
+export default function Home({data, refreshList, updateShows}){
     const [itemId, setItemId] = useState('');
     const [originalItem, setOriginalItem] = useState('');
 
@@ -21,18 +21,20 @@ export default function Home({data, updateData, updateShows}){
         ev.preventDefault();
         let obj = {
           id: ev.target.getAttribute('data-id'),
-          value: ev.target.value,
+          title: ev.target.value,
         };
-        updateData(obj);
+        console.log(obj);
+        refreshList(obj)
       }
 
       //TODO: update App and firebase
       function saveItem(ev) {
         ev.preventDefault();
         const id = ev.target.getAttribute('data-id');
-        data.find((obj) => {
+        let obj = data.find((obj) => {
           return obj.id === id;
         });
+        updateItem('american', id, obj.title)
         setItemId('');
         setOriginalItem('');
       }
@@ -42,7 +44,7 @@ export default function Home({data, updateData, updateShows}){
     const id = ev.target.getAttribute('data-id');
     let obj = {
       id: id,
-      value: originalItem,
+      title: originalItem,
     };
     console.log(obj);
     setItemId('');
@@ -50,14 +52,14 @@ export default function Home({data, updateData, updateShows}){
   }
 
 
-  function deleteItem(ev) {
+  function deleteIt(ev) {
 
     ev.preventDefault();
     const id = ev.target.getAttribute('data-id');
     let newData = data.filter((obj) => {
       return obj.id !== id;
     });
-    deleteData(id);
+    deleteItem(id);
     updateShows(newData);
     setItemId('');
     setOriginalItem('');
@@ -73,7 +75,7 @@ export default function Home({data, updateData, updateShows}){
           change={changeItem}
           save={saveItem}
           cancel={cancel}
-          del={deleteItem}
+          del={deleteIt}
         />
       );
     } else {

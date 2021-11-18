@@ -32,18 +32,18 @@ return setShows(showsList);
  }, [])
 
 
-//  function updateList(obj){
-//    const newList = shows.map((item)=>{
-//     if(obj.id === item.id) {
-//       return obj;
-//     }
-//     else {
-//       return item;
-//     }
-//    });
-//    console.log(newList)
-//    setShows(newList)
-//  }
+ function refreshList(obj){
+   const newList = shows.map((item)=>{
+    if(obj.id === item.id) {
+      return obj;
+    }
+    else {
+      return item;
+    }
+   });
+   console.log(newList)
+   setShows(newList)
+ }
 
 function updateList(){
   getData('american');
@@ -55,7 +55,7 @@ function updateList(){
   <h1>Firestore App</h1>
     <Switch>
     <Route exact path="/" >
-      <Home data={shows} updateData={updateList} updateShows={setShows}/>
+      <Home data={shows} refreshList={refreshList} updateShows={setShows}/>
       </Route>
       <Route path="/add">
         <Add  data={shows} updateList={updateList}/>

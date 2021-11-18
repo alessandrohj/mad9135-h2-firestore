@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, getDocs, collection, addDoc, doc, deleteDoc} from 'firebase/firestore';
+import { getFirestore, getDocs, collection, addDoc, doc, deleteDoc, updateDoc} from 'firebase/firestore';
 
 // export const firebaseConfig = {
 //     apiKey: "AIzaSyCktNICL86Mw-LEIGlWQsCLzaYXyVKfazo",
@@ -45,17 +45,16 @@ export async function addData(category, data){
       return docRef.id;
 }
 
-export async function deleteData(id){
-    // db.collection(category).doc(id).delete().then(() => {
-    //     console.log("Document successfully deleted!");
-    // }).catch((error) => {
-    //     console.error("Error removing document: ", error);
-    // });
+export async function deleteItem(id){
+
     await deleteDoc(doc(db, 'american', id));
     console.log('deleted')
 }
 
-export async function updateData(category, id){
-    let ref = db.collection(category).doc(id);
+export async function updateItem(category, id, data){
+    const ref = doc(db, category, id);
+    await updateDoc(ref, {
+        title: data
+    })
     //TODO: create fields to update
 }
