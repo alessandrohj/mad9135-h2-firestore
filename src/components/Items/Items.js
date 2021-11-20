@@ -65,7 +65,7 @@ export default function Items({data, updateShows, refreshList, category}){
     let newData = shows.filter((obj) => {
       return obj.id !== id;
     });
-    deleteItem(id);
+    deleteItem(category ,id);
     let newShows = data;
     newShows[`${category}`] = newData;
     updateShows(newShows);
@@ -114,7 +114,7 @@ const handleClose = () => setOpen(false);
             return (
                 <Card key={item.id} data-id={item.id} data-cat={item.category} className={item.category} style={{backgroundColor: '#FFF5F7',maxWidth: 300, minWidth: 200, marginTop: '1rem'}}>
                 <CardContent>
-                  <h2 style={{color:'#661727', fontWeight: 'bold', fontSize:'1.4rem'}}>{item.title}</h2>
+                  <h2 style={{color:'#661727', fontWeight: 'bold', fontSize:'1.4rem'}} className="capitalize">{item.title}</h2>
                 </CardContent>
                 <Button data-id={item.id} data-cat={item.category} onClick={editItem} style={{fontSize: '1.2rem', marginBottom: '.5rem', fontWeight: 'bold', color: 'black'}}>Edit</Button>
             </Card>

@@ -32,6 +32,7 @@ async function getData () {
       british: (await getDocs(britishCol)).docs.map(item=>({id: item.id, category: 'british', title: item.data()['title']})),
      anime: (await getDocs(animeCol)).docs.map(item=>({id: item.id, category: 'anime', title: item.data()['title']})),
     };
+    console.log('data fetched')
   return (
     setShows(showsList)
   );

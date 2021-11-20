@@ -46,8 +46,8 @@ export async function addData(category, data){
       return docRef.id;
 }
 
-export async function deleteItem(id){
-    await deleteDoc(doc(db, 'american', id));
+export async function deleteItem(category, id){
+    await deleteDoc(doc(db, category, id));
     console.log('deleted')
 }
 

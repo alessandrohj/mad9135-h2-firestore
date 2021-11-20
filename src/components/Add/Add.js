@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 import {Modal, Typography} from '@mui/material';
 
 export default function Add({updateList, setNavBottomValue}){
+
   const [category, setCategory] = useState('american');
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
