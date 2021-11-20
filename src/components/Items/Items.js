@@ -1,22 +1,24 @@
 import EditItem from "../EditItem/EditItem";
-import { Card, CardContent, Button, Container } from "@mui/material";
+import { Card, CardContent, Button, Container, Modal, Box} from "@mui/material";
 import {deleteItem, updateItem} from '../../firebase/firebase.utils';
 import { useState } from "react";
 
 export default function Items({data, updateShows, refreshList, category}){
     let shows = data && data[`${category}`];
 
-
+//states
     const [itemId, setItemId] = useState('');
     const [originalItemTitle, setOriginalItemTitle] = useState('');
     const [updatedTitle, setUpdatedTitle] = useState('');
 
+    //CRUD
     function editItem(ev){
         ev.preventDefault();
         const id = ev.target.getAttribute('data-id');
         setItemId(id);
         const itemTitle = shows.find((obj) => obj.id === id)['title'];
         setOriginalItemTitle(itemTitle);
+        handleOpen();
     }
 
     function changeItem(ev) {
@@ -28,7 +30,6 @@ export default function Items({data, updateShows, refreshList, category}){
           category: category,
           title: title,
         };
-        console.log(obj);
         setUpdatedTitle(title);
         refreshList(category, obj)
       }
@@ -73,18 +74,41 @@ export default function Items({data, updateShows, refreshList, category}){
     setOriginalItemTitle('');
 }
 
+//modal
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
+const [open, setOpen] = useState(false);
+const handleOpen = () => setOpen(true);
+const handleClose = () => setOpen(false);
 
         const Items = shows && shows.map((item) => {
         if (item.id === itemId) {
           return (
+            <Modal open={open}
+            onClose={handleClose}
+            aria-labelledby="Edit Item"
+            aria-describedby="Edit Item Options"
+            key={item.id}>
+            <Box sx={style}>
             <EditItem
-              key={item.id}
+            key={item.id}
               item={item}
               change={changeItem}
               save={saveItem}
               cancel={cancel}
               del={deleteIt}
             />
+            </Box>
+            </Modal>
           );
         } else {
             return (

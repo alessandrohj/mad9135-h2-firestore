@@ -15,7 +15,7 @@ import './App.css';
 
 function App() {
   const [shows, setShows] = useState([]);
-  const [value, setValue] = useState(0);
+  const [navBottomValue, setNavBottomValue] = useState(0);
 
 
   const app = initializeApp(firebaseConfig);
@@ -72,13 +72,13 @@ function updateList(){
       <Home data={shows} refreshList={refreshList} updateShows={setShows}/>
       </Route>
       <Route path="/add">
-        <Add updateList={updateList}/>
+        <Add updateList={updateList} setNavBottomValue={setNavBottomValue}/>
       </Route>
     </Switch>
     <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3} className='border-t-2'>
-    <BottomNavigation showLabels value={value}
+    <BottomNavigation showLabels value={navBottomValue}
   onChange={(ev, newValue) => {
-    setValue(newValue);
+    setNavBottomValue(newValue);
   }}>
     <BottomNavigationAction href='#/' label="Home" icon={<HomeIcon />} />
   <BottomNavigationAction href='#/add' label="Add" icon={<AddIcon />} />

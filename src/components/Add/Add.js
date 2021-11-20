@@ -4,7 +4,7 @@ import {useState} from 'react';
 import { NavLink } from 'react-router-dom';
 import {Modal, Typography} from '@mui/material';
 
-export default function Add({updateList}){
+export default function Add({updateList, setNavBottomValue}){
   const [category, setCategory] = useState('american');
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -24,10 +24,16 @@ export default function Add({updateList}){
         } else {
             title.textContent = '';
         await addData(category, { title: title.value});
+        setNavBottomValue([0])
           updateList();
 
         }
 
+      }
+
+      function cancel(ev){
+        ev.preventDefault();
+        setNavBottomValue(0);
       }
     const categories = [
         {
@@ -43,7 +49,7 @@ export default function Add({updateList}){
             label: 'Anime'
         }
     ]
-
+//modal styles
     const style = {
       position: 'absolute',
       top: '50%',
@@ -90,21 +96,21 @@ export default function Add({updateList}){
           required
         />
         <div className='flex justify-center gap-8'>
-        <Button style={{width: '7rem', fontWeight: 'bold', marginTop: '1.5rem'}} color="success" variant="contained" onClick={save}>Add</Button>
-        <Button style={{width: '7rem', fontWeight: 'bold', marginTop: '1.5rem'}} color="error" variant="contained"><NavLink to='/'>Cancel</NavLink></Button>
+        <Button style={{width: '7rem', fontWeight: 'bold', marginTop: '1.5rem'}} color="success" variant="contained" onClick={save}><NavLink to='/'>Add</NavLink></Button>
+        <Button style={{width: '7rem', fontWeight: 'bold', marginTop: '1.5rem'}} color="error" variant="contained" onClick={cancel}><NavLink to='/'>Cancel</NavLink></Button>
         </div>
       </Container>
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        aria-labelledby="error"
+        aria-describedby="error-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
+          <Typography variant="h6" component="h2">
             Error
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+          <Typography sx={{ mt: 2 }}>
             Please add a valid title.
           </Typography>
         </Box>
