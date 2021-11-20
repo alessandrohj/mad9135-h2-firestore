@@ -87,17 +87,17 @@ export default function Items({data, updateShows, refreshList, category}){
           );
         } else {
             return (
-                <Card key={item.id} data-id={item.id} data-cat={item.category} className={item.category} style={{maxWidth: 275, marginTop: '1rem'}}>
+                <Card key={item.id} data-id={item.id} data-cat={item.category} className={item.category} style={{backgroundColor: '#E4F2F7',maxWidth: 300, minWidth: 200, marginTop: '1rem'}}>
                 <CardContent>
-                  <h2>{item.title}</h2>
+                  <h2 style={{color:'#35535E', fontWeight: 'bold'}}>{item.title}</h2>
                 </CardContent>
-                <Button data-id={item.id} data-cat={item.category} onClick={editItem}>Edit</Button>
+                <Button data-id={item.id} data-cat={item.category} onClick={editItem} style={{fontSize: '1rem', marginBottom: '.5rem'}}>Edit</Button>
             </Card>
             )
       }}
     );
    return (
-       <Container>
+       <Container style={{marginBottom: '2rem'}}>
         {Items}
        </Container>
    );

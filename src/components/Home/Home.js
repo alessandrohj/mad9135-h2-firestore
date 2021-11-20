@@ -1,24 +1,25 @@
-import { Container, Box} from "@mui/material";
+import {Box, Fab} from "@mui/material";
 import Items from "../Items/Items";
-
+import AddIcon from '@mui/icons-material/Add';
 
 export default function Home({data, refreshList, updateShows}){
 
+  let subStyle = 'text-xl font-bold py-3'
     return (
-        <Container>
+        <div className="grid sm:flex justify-center ml-2">
             <Box>
-              <h2>Americans</h2>
+              <h2 className={subStyle}>Americans</h2>
            <Items data={data} category={'american'} refreshList={refreshList} updateShows={updateShows}/>
            </Box>
            <Box>
-              <h2>British</h2>
+              <h2 className={subStyle}>British</h2>
            <Items data={data} category={'british'} refreshList={refreshList} updateShows={updateShows}/>
            </Box>
            <Box>
-              <h2>Animes</h2>
+              <h2 className={subStyle}>Anime</h2>
            <Items data={data} category={'anime'} refreshList={refreshList} updateShows={updateShows}/>
            </Box>
-        </Container>
+        </div>
 
     )
 }

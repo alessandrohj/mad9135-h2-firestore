@@ -53,8 +53,9 @@ export default function Add({updateList, data}){
       }}
       noValidate
       autoComplete="off"
+      className='grid justify-center mb-9'
     >
-        <h2>Add New TV Show</h2>
+        <h2 className='text-xl font-bold py-3'>Add a new TV Show</h2>
         <Container style={{display: "flex", flexDirection: "column"}}>
         <TextField
           id="outlined-select-category"
@@ -76,8 +77,10 @@ export default function Add({updateList, data}){
           placeholder="Title"
           required
         />
-        <Button style={{maxWidth:"15vw", marginTop:"2rem"}} variant="contained" onClick={save}><NavLink to='/'>Add</NavLink></Button>
-        <Button style={{maxWidth:"15vw", marginTop:"2rem"}} color="warning" variant="contained" onClick={cancel}><NavLink to='/'>Cancel</NavLink></Button>
+        <div className='flex justify-center gap-8'>
+        <Button style={{width: '7rem', fontWeight: 'bold', marginTop: '1.5rem'}} color="success" variant="contained" onClick={save}><NavLink to='/'>Add</NavLink></Button>
+        <Button style={{width: '7rem', fontWeight: 'bold', marginTop: '1.5rem'}} color="error" variant="contained" onClick={cancel}><NavLink to='/'>Cancel</NavLink></Button>
+        </div>
       </Container>
     </Box>
     )

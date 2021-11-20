@@ -1,14 +1,21 @@
-import './App.css';
+
 import { Switch, Route } from 'react-router-dom';
-import Add from './components/Add/Add';
-import Home from './components/Home/Home';
 import { useEffect, useState } from 'react';
 import { initializeApp } from "firebase/app";
 import { getFirestore, getDocs, collection} from 'firebase/firestore';
 import {firebaseConfig } from './firebase/firebase.utils';
+import Add from './components/Add/Add';
+import Home from './components/Home/Home';
+import Header from './components/Header/Header';
+import BottomNavigation from '@mui/material/BottomNavigation';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import AddIcon from '@mui/icons-material/Add';
+import HomeIcon from '@mui/icons-material/Home';
+import './App.css';
 
 function App() {
   const [shows, setShows] = useState([]);
+  const [value, setValue] = useState(0);
 
 
   const app = initializeApp(firebaseConfig);
@@ -59,7 +66,7 @@ function updateList(){
 
   return (
     <div className="App">
-  <h1>Firestore App</h1>
+  <Header />
     <Switch>
     <Route exact path="/" >
       <Home data={shows} refreshList={refreshList} updateShows={setShows}/>
@@ -68,6 +75,15 @@ function updateList(){
         <Add data={shows} updateList={updateList}/>
       </Route>
     </Switch>
+    <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3} className='border-t-2'>
+    <BottomNavigation showLabels value={value}
+  onChange={(ev, newValue) => {
+    setValue(newValue);
+  }}>
+    <BottomNavigationAction href='/' label="Home" icon={<HomeIcon />} />
+  <BottomNavigationAction href='#/add' label="Add" icon={<AddIcon />} />
+    </BottomNavigation>
+    </div>
     </div>
   );
 }
