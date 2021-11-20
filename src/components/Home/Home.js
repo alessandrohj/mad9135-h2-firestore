@@ -1,6 +1,5 @@
-import {Box, Fab} from "@mui/material";
+import {Box} from "@mui/material";
 import Items from "../Items/Items";
-import AddIcon from '@mui/icons-material/Add';
 
 export default function Home({data, refreshList, updateShows}){
 

@@ -46,7 +46,6 @@ export async function addData(category, data){
 }
 
 export async function deleteItem(id){
-
     await deleteDoc(doc(db, 'american', id));
     console.log('deleted')
 }

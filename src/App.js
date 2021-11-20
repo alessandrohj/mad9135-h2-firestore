@@ -72,7 +72,7 @@ function updateList(){
       <Home data={shows} refreshList={refreshList} updateShows={setShows}/>
       </Route>
       <Route path="/add">
-        <Add data={shows} updateList={updateList}/>
+        <Add updateList={updateList}/>
       </Route>
     </Switch>
     <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3} className='border-t-2'>
@@ -80,7 +80,7 @@ function updateList(){
   onChange={(ev, newValue) => {
     setValue(newValue);
   }}>
-    <BottomNavigationAction href='/' label="Home" icon={<HomeIcon />} />
+    <BottomNavigationAction href='#/' label="Home" icon={<HomeIcon />} />
   <BottomNavigationAction href='#/add' label="Add" icon={<AddIcon />} />
     </BottomNavigation>
     </div>

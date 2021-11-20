@@ -60,6 +60,7 @@ export default function Items({data, updateShows, refreshList, category}){
 
     ev.preventDefault();
     const id = ev.target.getAttribute('data-id');
+    console.log(id);
     let newData = shows.filter((obj) => {
       return obj.id !== id;
     });
@@ -87,11 +88,11 @@ export default function Items({data, updateShows, refreshList, category}){
           );
         } else {
             return (
-                <Card key={item.id} data-id={item.id} data-cat={item.category} className={item.category} style={{backgroundColor: '#E4F2F7',maxWidth: 300, minWidth: 200, marginTop: '1rem'}}>
+                <Card key={item.id} data-id={item.id} data-cat={item.category} className={item.category} style={{backgroundColor: '#FFF5F7',maxWidth: 300, minWidth: 200, marginTop: '1rem'}}>
                 <CardContent>
-                  <h2 style={{color:'#35535E', fontWeight: 'bold'}}>{item.title}</h2>
+                  <h2 style={{color:'#661727', fontWeight: 'bold', fontSize:'1.4rem'}}>{item.title}</h2>
                 </CardContent>
-                <Button data-id={item.id} data-cat={item.category} onClick={editItem} style={{fontSize: '1rem', marginBottom: '.5rem'}}>Edit</Button>
+                <Button data-id={item.id} data-cat={item.category} onClick={editItem} style={{fontSize: '1.2rem', marginBottom: '.5rem', fontWeight: 'bold', color: 'black'}}>Edit</Button>
             </Card>
             )
       }}

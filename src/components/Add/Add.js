@@ -2,9 +2,13 @@ import {Box, Button, TextField, MenuItem, Container} from '@mui/material'
 import { addData } from '../../firebase/firebase.utils';
 import {useState} from 'react';
 import { NavLink } from 'react-router-dom';
+import {Modal, Typography} from '@mui/material';
 
-export default function Add({updateList, data}){
+export default function Add({updateList}){
   const [category, setCategory] = useState('american');
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
     const handleCategory = (ev) => {
         setCategory(ev.target.value);
@@ -13,23 +17,18 @@ export default function Add({updateList, data}){
     
      async function save(ev){
         let title = document.getElementById('show-title');
-        ev.preventDefault();   
-        if(!title.value) {
+        if(!title.value.trim() ) {
+          ev.preventDefault(); 
+          handleOpen();
             return
         } else {
             title.textContent = '';
-        let id = await addData(category, { title: title.value});
-          data.push({title: title.value, id: id});
-           updateList();
+        await addData(category, { title: title.value});
+          updateList();
 
         }
 
       }
-
-      function cancel(ev){
-        ev.preventDefault();
-      }
-
     const categories = [
         {
             value: 'american',
@@ -44,6 +43,19 @@ export default function Add({updateList, data}){
             label: 'Anime'
         }
     ]
+
+    const style = {
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      width: 400,
+      bgcolor: 'background.paper',
+      border: '2px solid #000',
+      boxShadow: 24,
+      p: 4,
+    };
+
 
     return(
         <Box
@@ -78,10 +90,25 @@ export default function Add({updateList, data}){
           required
         />
         <div className='flex justify-center gap-8'>
-        <Button style={{width: '7rem', fontWeight: 'bold', marginTop: '1.5rem'}} color="success" variant="contained" onClick={save}><NavLink to='/'>Add</NavLink></Button>
-        <Button style={{width: '7rem', fontWeight: 'bold', marginTop: '1.5rem'}} color="error" variant="contained" onClick={cancel}><NavLink to='/'>Cancel</NavLink></Button>
+        <Button style={{width: '7rem', fontWeight: 'bold', marginTop: '1.5rem'}} color="success" variant="contained" onClick={save}>Add</Button>
+        <Button style={{width: '7rem', fontWeight: 'bold', marginTop: '1.5rem'}} color="error" variant="contained"><NavLink to='/'>Cancel</NavLink></Button>
         </div>
       </Container>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Error
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            Please add a valid title.
+          </Typography>
+        </Box>
+      </Modal>
     </Box>
     )
 }
