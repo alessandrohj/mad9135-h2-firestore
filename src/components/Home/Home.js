@@ -7,11 +7,9 @@ import Items from "../Items/Items";
 
 export default function Home({data, refreshList, updateShows}){
 
-  console.log(data);
   let americans = data && data['american'];
   let british = data && data['british'];
   let animes = data && data['anime'];
-  console.log(americans);
 
 //     const [itemId, setItemId] = useState('');
 //     const [originalItem, setOriginalItem] = useState('');
@@ -104,15 +102,15 @@ export default function Home({data, refreshList, updateShows}){
         <Container>
             <Box>
               <h2>Americans</h2>
-           <Items data={americans} refreshList={refreshList} updateShows={updateShows}/>
+           <Items data={data} category={'american'} refreshList={refreshList} updateShows={updateShows}/>
            </Box>
            <Box>
               <h2>British</h2>
-           <Items data={british} refreshList={refreshList} updateShows={updateShows}/>
+           <Items data={data} category={'british'} refreshList={refreshList} updateShows={updateShows}/>
            </Box>
            <Box>
               <h2>Animes</h2>
-           <Items data={animes} refreshList={refreshList} updateShows={updateShows}/>
+           <Items data={data} category={'anime'} refreshList={refreshList} updateShows={updateShows}/>
            </Box>
         </Container>
 
