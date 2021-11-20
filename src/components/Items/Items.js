@@ -9,14 +9,13 @@ export default function Items({data, updateShows, refreshList, category}){
 
     const [itemId, setItemId] = useState('');
     const [originalItemTitle, setOriginalItemTitle] = useState('');
+    const [updatedTitle, setUpdatedTitle] = useState('');
 
     function editItem(ev){
         ev.preventDefault();
-        console.log('clicked edit');
         const id = ev.target.getAttribute('data-id');
         setItemId(id);
         const itemTitle = shows.find((obj) => obj.id === id)['title'];
-        console.log()
         setOriginalItemTitle(itemTitle);
     }
 
@@ -30,18 +29,16 @@ export default function Items({data, updateShows, refreshList, category}){
           title: title,
         };
         console.log(obj);
+        setUpdatedTitle(title);
         refreshList(category, obj)
       }
 
       function saveItem(ev) {
         ev.preventDefault();
-        // const id = ev.target.getAttribute('data-id');
-        // let obj = data.find((obj) => {
-        //   return obj.id === id;
-        // });
-        // updateItem('american', id, obj.title)
-        // setItemId('');
-        // setOriginalItemTitle('');
+        const id = ev.target.getAttribute('data-id');
+        updateItem(category, id, updatedTitle);
+        setItemId('');
+        setOriginalItemTitle('');
       }
 
   function cancel(ev) {
@@ -53,6 +50,7 @@ export default function Items({data, updateShows, refreshList, category}){
       title: originalItemTitle,
     };
     console.log(obj);
+    setUpdatedTitle('');
     setItemId('');
     setOriginalItemTitle('');
   }
@@ -65,11 +63,11 @@ export default function Items({data, updateShows, refreshList, category}){
     let newData = shows.filter((obj) => {
       return obj.id !== id;
     });
-    console.log(newData);
     deleteItem(id);
     let newShows = data;
     newShows[`${category}`] = newData;
     updateShows(newShows);
+    setUpdatedTitle('');
     setItemId('');
     setOriginalItemTitle('');
 }

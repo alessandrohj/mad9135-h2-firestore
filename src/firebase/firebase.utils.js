@@ -56,5 +56,4 @@ export async function updateItem(category, id, data){
     await updateDoc(ref, {
         title: data
     })
-    //TODO: create fields to update
 }

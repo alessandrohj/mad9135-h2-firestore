@@ -9,9 +9,6 @@ import {firebaseConfig } from './firebase/firebase.utils';
 
 function App() {
   const [shows, setShows] = useState([]);
-  const [american, setAmerican] = useState([]);
-  const [british, setBritish] = useState([]);
-  const [anime, setAnime] = useState([]);
 
 
   const app = initializeApp(firebaseConfig);
@@ -29,33 +26,18 @@ async function getData () {
      anime: (await getDocs(animeCol)).docs.map(item=>({id: item.id, category: 'anime', title: item.data()['title']})),
     };
   return (
-    setShows(showsList),
-    setAnime(showsList.anime),
-    setAmerican(showsList.american),
-    setBritish(showsList.british)
+    setShows(showsList)
   );
    }
   
 
  useEffect(()=>{
-  //  getData('american');
   getData();
  },[])
 
 
  function refreshList(category, obj){
-  //  let list = shows;
-  //  let newList = list[`${category}`].map((item)=>{
-  //   if(obj.id === item.id) {
-  //     return obj;
-  //   }
-  //   else {
-  //     return item;
-  //   }
-  //  });
-  //  list[`${category}`] = newList;
-  //  console.log(list)
-  //  setShows(list)
+
   let list = shows;
   let newList = list[`${category}`].map((item)=>{
    if(obj.id === item.id) {
