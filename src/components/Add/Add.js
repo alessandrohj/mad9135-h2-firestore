@@ -4,7 +4,6 @@ import {useState} from 'react';
 import { NavLink } from 'react-router-dom';
 
 export default function Add({updateList, data}){
-  const [list, setList] = useState(data);
   const [category, setCategory] = useState('american');
 
     const handleCategory = (ev) => {
@@ -20,7 +19,7 @@ export default function Add({updateList, data}){
         } else {
             title.textContent = '';
         let id = await addData(category, { title: title.value});
-           setList(data.push({title: title.value, id: id}));
+          data.push({title: title.value, id: id});
            updateList();
 
         }

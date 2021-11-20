@@ -9,6 +9,7 @@ export default function EditItem({ item, save, cancel, change, del}) {
       <input
         id={'title'}
         data-id={item.id}
+        data-cat={item.category}
         value={item.value}
         type="text"
         onChange={change}
