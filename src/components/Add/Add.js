@@ -98,8 +98,8 @@ export default function Add({updateList, updateNavBottom}){
           required
         />
         <div className='flex justify-center gap-8'>
-        <Button style={{width: '7rem', fontWeight: 'bold', marginTop: '1.5rem'}} color="success" variant="contained" onClick={save}><NavLink to='/'>Add</NavLink></Button>
-        <Button style={{width: '7rem', fontWeight: 'bold', marginTop: '1.5rem'}} color="error" variant="contained" onClick={cancel}><NavLink to='/'>Cancel</NavLink></Button>
+        <Button style={{width: '7rem', fontWeight: 'bold', marginTop: '1.5rem'}} color="success" variant="contained" onClick={save}><NavLink exact to='/'>Add</NavLink></Button>
+        <Button style={{width: '7rem', fontWeight: 'bold', marginTop: '1.5rem'}} color="error" variant="contained" onClick={cancel}><NavLink exact to='/'>Cancel</NavLink></Button>
         </div>
       </Container>
       <Modal
