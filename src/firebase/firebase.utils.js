@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, getDocs, collection, addDoc, doc, deleteDoc, updateDoc} from 'firebase/firestore';
+import { getFirestore, collection, addDoc, doc, deleteDoc, updateDoc} from 'firebase/firestore';
 
 export const firebaseConfig = {
     apiKey: "AIzaSyCktNICL86Mw-LEIGlWQsCLzaYXyVKfazo",
@@ -25,24 +25,8 @@ export const firebaseConfig = {
   const db = getFirestore(app);
 
 
-export async function getData(category){
-    const showsCol = collection(db, category);
-    const showSnapshot = await getDocs(showsCol)
-    const showsList = showSnapshot.docs.map(item => {
-        return ({
-            id: item.id,
-            title: item.data()['title'],
-            }
-        )
-    })
-    return showsList;
-
-}
-
-
 export async function addData(category, data){
     const docRef = await addDoc(collection(db, category), data);
-      console.log("Document written with ID: ", docRef.id);
       return docRef.id;
 }
 

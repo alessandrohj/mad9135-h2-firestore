@@ -32,7 +32,6 @@ async function getData () {
       british: (await getDocs(britishCol)).docs.map(item=>({id: item.id, category: 'british', title: item.data()['title']})),
      anime: (await getDocs(animeCol)).docs.map(item=>({id: item.id, category: 'anime', title: item.data()['title']})),
     };
-    console.log('data fetched')
   return (
     setShows(showsList)
   );
@@ -56,7 +55,6 @@ async function getData () {
    }
   });
   list[`${category}`] = newList;
-  console.log(list)
   setShows(list)
  }
 
@@ -68,19 +66,20 @@ function updateList(){
   return (
     <div className="App">
   <Header />
+  <h1 className='text-3xl p-4 font-bold' style={{color: '#661727'}}>TV Show List</h1>
     <Switch>
     <Route exact path="/" >
       <Home data={shows} refreshList={refreshList} updateShows={setShows}/>
       </Route>
       <Route path="/add">
-        <Add updateList={updateList} setNavBottomValue={setNavBottomValue}/>
+        <Add updateList={updateList} updateNavBottom={setNavBottomValue}/>
       </Route>
     </Switch>
     <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3} className='border-t-2'>
     <BottomNavigation showLabels value={navBottomValue}
-  onChange={(ev, newValue) => {
-    setNavBottomValue(newValue);
-  }}>
+  onChange={(ev, newValue)=>(
+    setNavBottomValue(newValue)
+  )}>
     <BottomNavigationAction href='#/' label="Home" icon={<HomeIcon />} />
   <BottomNavigationAction href='#/add' label="Add" icon={<AddIcon />} />
     </BottomNavigation>

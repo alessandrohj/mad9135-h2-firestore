@@ -4,9 +4,10 @@ import {useState} from 'react';
 import { NavLink } from 'react-router-dom';
 import {Modal, Typography} from '@mui/material';
 
-export default function Add({updateList, setNavBottomValue}){
+export default function Add({updateList, updateNavBottom}){
 
   const [category, setCategory] = useState('american');
+  //modal handle
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -15,7 +16,7 @@ export default function Add({updateList, setNavBottomValue}){
         setCategory(ev.target.value);
       };
 
-    
+    //crud
      async function save(ev){
         let title = document.getElementById('show-title');
         if(!title.value.trim() ) {
@@ -25,7 +26,7 @@ export default function Add({updateList, setNavBottomValue}){
         } else {
             title.textContent = '';
         await addData(category, { title: title.value});
-        setNavBottomValue([0])
+        updateNavBottom(0)
           updateList();
 
         }
@@ -34,7 +35,7 @@ export default function Add({updateList, setNavBottomValue}){
 
       function cancel(ev){
         ev.preventDefault();
-        setNavBottomValue(0);
+        updateNavBottom(0);
       }
     const categories = [
         {

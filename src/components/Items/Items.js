@@ -112,12 +112,14 @@ const handleClose = () => setOpen(false);
           );
         } else {
             return (
-                <Card key={item.id} data-id={item.id} data-cat={item.category} className={item.category} style={{backgroundColor: '#FFF5F7',maxWidth: 300, minWidth: 200, marginTop: '1rem'}}>
+              <div className='flex justify-center' key={item.id}>
+                <Card data-id={item.id} data-cat={item.category} className={`${item.category} flex-1 `} style={{backgroundColor: '#FFF7F7', marginTop: '1rem', maxWidth: 350}} raised>
                 <CardContent>
                   <h2 style={{color:'#661727', fontWeight: 'bold', fontSize:'1.4rem'}} className="capitalize">{item.title}</h2>
                 </CardContent>
                 <Button data-id={item.id} data-cat={item.category} onClick={editItem} style={{fontSize: '1.2rem', marginBottom: '.5rem', fontWeight: 'bold', color: 'black'}}>Edit</Button>
             </Card>
+            </div>
             )
       }}
     );
